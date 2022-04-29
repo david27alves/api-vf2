@@ -1,0 +1,77 @@
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="./js/scripts.js" defer></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body style="background-color: #F2F2F2">
+  <div class="container">
+    <div class="teste" style="border: 1px solid #cfe0ed; padding: 20px;border-radius: 5px; background-color: #fff; box-shadow: inset 0 3px 0 #0D6EFD">
+      <form class="row g-3">
+        <div class="col-md-1">
+          <label class="form-label" for="loja">Loja</label>
+          <input class="form-control form-control-sm" id="loja" type="text" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="inputZip">&nbsp;</label>
+          <input class="form-control form-control-sm" id="lojaNome" type="text" disabled="disabled" />
+        </div>
+        <div class="col-md-5">
+          <label class="form-label" for="placa">Placa</label>
+          <input class="form-control form-control-sm" id="placa" type="text" />
+        </div>
+        <div class="col-md-12">
+          <div class="card"><b class="card-header bg-primary text-white">Registros
+              <button class="btn btn-primary btn-sm" id="addRegistros" type="button" style="float: right">Adicionar</button></b>
+            <div class="card-body">
+              <table class="table table-bordered" id="tableRegistros">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nº NFe</th>
+                    <th scope="col">Chave NFe</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" id="btn-gravar" type="button">Gravar portaria</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="spinner" hidden=""></div>
+</body>
+
+</html>
+
+<div class="modal" id="chaveNFeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nota fiscal</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3 needs-validation" novalidate="">
+          <div class="col-md-12">
+            <label class="form-label" for="chaveNFe">Chave NF-e</label>
+            <input class="form-control form-control-sm" id="chaveNFe" type="text" aria-describedby="chaveNFe" required="" />
+            <div id="validate" style="color: red; font-size: .8em"> </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="addNFe" type="button">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>

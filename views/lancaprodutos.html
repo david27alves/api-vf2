@@ -1,0 +1,129 @@
+<html>
+
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./css/styles.css" />
+        
+        
+    </head>
+
+    <body style="background-color: #F2F2F2">
+        <div class="container">
+            <div style="border: 1px solid #cfe0ed; padding: 20px;border-radius: 5px; background-color: #fff; box-shadow: inset 0 3px 0 #0D6EFD">
+                <form class="row g-3" id="form-produtos">
+                    <div class="col-md-3">
+                    <label class="form-label" for="codProduto">Código</label>
+                    <input class="form-control form-control-sm" id="codProduto" type="text" aria-describedby="codProduto" />
+                    </div>
+                    <div class="col-md-9">
+                    <label class="form-label" for="produto">Produto</label>
+                    <input class="form-control form-control-sm" id="descProduto" type="text" aria-describedby="produto" disabled="" />
+                    </div>
+                    <div class="col-md-5">
+                    <label class="form-label" for="qtdProduto">Quantidade</label>
+                    <input class="form-control form-control-sm" id="qtdProduto" type="text" aria-describedby="produto" />
+                    </div>
+                    <div class="col-md-5">
+                    <label class="form-label" for="qtdEmbalagem">Qtd Embalagem</label>
+                    <input class="form-control form-control-sm" id="qtdEmbalagem" type="text" aria-describedby="produto" />
+                    </div>
+                    <div class="col-md-2">
+                    <label class="form-label" for="unEmbalagem">UN</label>
+                    <input class="form-control form-control-sm" id="unEmbalagem" type="text" aria-describedby="produto" disabled="" />
+                    </div>
+                    <button class="btn btn-success">Lançar!</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="spinner" hidden=""></div>
+
+        <script type="text/javascript">
+            const url = "http://127.0.0.1:3000"
+            const formprodutos = document.getElementById('form-produtos')
+            const codigo = document.getElementById('codProduto')
+            const descPproduto = document.getElementById('descProduto')
+            const qtdProduto = document.getElementById('qtdProduto')
+            const qtdEmbalagem = document.getElementById('qtdEmbalagem')
+            const unEmbalagem = document.getElementById('unEmbalagem')
+            const produtosRegistro = []
+
+            formprodutos.addEventListener('submit', (e) => {
+                e.preventDefault()
+            }) 
+
+            codigo.addEventListener('keypress', (e) => {
+                if (e.key === "Enter") {
+                    setProduto(codigo.value)
+                }
+            })
+
+            qtdProduto.addEventListener('keypress', (e) => {
+                if (e.key === "Enter") {
+                    qtdEmbalagem.focus()
+                }
+            })
+
+            qtdEmbalagem.addEventListener('keypress', (e) => {
+                if (e.key == "Enter"){
+                    addProduto()                        
+                }
+                })
+
+
+            function updateRegistros(produto) {
+
+                var row = tableProdutos.insertRow(produto.length)
+
+                var cell1 = row.insertCell(0)
+                cell1.innerHTML = produto.length
+                var cell2 = row.insertCell(1)
+                cell2.innerHTML = produto[produto.length - 1].descricao
+                var cell3 = row.insertCell(2)
+                cell3.innerHTML = produto[produto.length - 1].qtdEmbalagem
+
+            }
+
+            function setProduto(codigo) {
+
+                spinner.removeAttribute('hidden')
+                fetch(`${url}/produtos?codigo=${codigo}`, {                        
+                    method: 'GET'
+                }).then(function(response) {                        
+                    response.json().then(function(data) {
+                        
+                        //console.log(data)                           
+                        
+                        if (data.length > 0) {
+
+                            var {descricao, itensEmbalagem, unidadeDeCompra} = data[0]
+                            
+                            descProduto.value = descricao
+                            qtdEmbalagem.value = itensEmbalagem
+                            unEmbalagem.value = unidadeDeCompra
+                            qtdProduto.focus()
+                        
+                        } else {                
+                            alert("Nada encontrado!")                
+                        }
+                        
+                    })                    
+                }).then(data => {
+                    spinner.setAttribute('hidden', '');
+                })
+            }
+
+            function addProduto (codigo, descricao, qtd, qtdEmbalagem, embalagem) {
+                produtosRegistro.push({
+                    "codProduto": codigo,
+                    "descricao": descricao,
+                    "quantidade" : parseInt(qtd),
+                    "qtdEmbalagem": qtdEmbalagem,
+                    "embalagem": embalagem
+                })
+            }
+        </script>
+    </body>
+</html>

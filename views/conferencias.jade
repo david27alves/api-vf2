@@ -1,0 +1,63 @@
+html 
+    head 
+        title=title 
+        link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css')
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj' crossorigin='anonymous')
+        link(rel='stylesheet', href='/css/styles.css')
+
+    body 
+        .container
+            table.table.table-striped.table-hover
+                thead
+                    tr
+                        th(scope='col') #
+                        th(scope='col') Veículo
+                        th(scope='col') Loja
+                        th(scope='col') Status
+                        th(scope='col') 
+                tbody
+                    for conferencia in conferencias
+                        tr
+                            th(scope='row')= conferencia.id
+                            td= conferencia.placa 
+                            td= conferencia.lojaId
+                            td= conferencia.statusDaConferencia
+                            td 
+                                button.btn.btn-primary.btn-sm(type='button' id= "conferencia-"+conferencia.id data-bs-toggle='modal' data-bs-target='#addItensModal' onclick="") Conferir
+                    else 
+                        tr 
+                            td(colspan='5') Nenhuma conferencia encontrada
+
+            button#btnPost.btn.btn-success Fazer o POST
+                            
+#spinner(hidden='')
+
+#addItensModal.modal(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true' data-bs-backdrop="static")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h5#exampleModalLabel.modal-title Adicionar produto
+                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+            .modal-body
+                form.row.g-3.needs-validation(novalidate='')
+                    .col-md-3
+                        label.form-label(for='codProduto') Código
+                        input#codProduto.form-control.form-control-sm(type='text' aria-describedby='codProduto')
+                    .col-md-9
+                        label.form-label(for='produto') Produto
+                        input#descProduto.form-control.form-control-sm(type='text' aria-describedby='produto' disabled='')
+                    .col-md-5
+                        label.form-label(for='qtdProduto') Quantidade
+                        input#qtdProduto.form-control.form-control-sm(type='text' aria-describedby='produto')
+                    .col-md-5
+                        label.form-label(for='qtdEmbalagem') Qtd Embalagem
+                        input#qtdEmbalagem.form-control.form-control-sm(type='text' aria-describedby='produto')
+                    .col-md-2
+                        label.form-label(for='unEmbalagem') UN
+                        input#unEmbalagem.form-control.form-control-sm(type='text' aria-describedby='produto' disabled='')
+
+
+            .modal-footer
+                button#addNFe.btn.btn-primary(type='button') Concluir
+                
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script>
+            const inputs = document.getElementById("inputs")
+            const add = document.getElementById("add")
+            const remove = document.getElementById("remove")
+            
+            console.log(add)
+
+            add.addEventListener("click", () => {
+                
+                alert("Clicou")
+
+            })
+            
+
+            function addInput() {
+            
+                var new_input = document.createElement("input")
+                new_input.setAttribute("type", "text")
+                
+                inputs.appendChild(new_input)
+            
+            }
+
+            function removeInput() {
+            
+                inputs.removeChild(inputs.childNodes[1])
+
+            }
+
+        </script>
+
+        <title>Teste</title>
+    </head>
+    <body>
+        
+        <a id="add">Add</a>
+        <input type="button" id="remove" value="Remove">
+
+        <div id="inputs"></div>
+
+    </body>
+</html>
